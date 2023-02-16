@@ -105,7 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         "number": 100,
                         "boo": true,
                         "user": {"age": 20, "tall": 1.8},
-                        "cities": ["beijing", "shanghai", "shenzhen"]
+                        "cities": ["beijing", "shanghai", "shenzhen"],
+                        "empty": null
                       }''',
                       onValueChanged: (value) {
                         _elementResult = value;

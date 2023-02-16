@@ -47,6 +47,10 @@ class JsonElement {
           (tokens.lexeme == 'true' || tokens.lexeme == 'false')) {
         value = tokens.lexeme == 'true';
         valueType = JsonElementValueType.bool;
+      } else if (tokens.type == TokenType.IDENTIFIER &&
+          tokens.lexeme == 'null') {
+        value = null;
+        valueType = JsonElementValueType.nullValue;
       } else if (tokens.lexeme == '{') {
         value = [];
         valueType = JsonElementValueType.map;
@@ -56,7 +60,8 @@ class JsonElement {
       } else if (tokens.lexeme == '}' || tokens.lexeme == ']') {
         result = eleStack.removeLast();
       }
-      if (value != null) {
+      if ((value != null) ||
+          value == null && valueType == JsonElementValueType.nullValue) {
         var ele = JsonElement(
             key: key,
             value: value,
@@ -105,6 +110,8 @@ class JsonElement {
       valueType = JsonElementValueType.array;
       elementValue =
           (value as List).map((e) => JsonElement.fromJson(e)).toList();
+    } else if (valueTypeStr == JsonElementValueType.nullValue.toString()) {
+      valueType = JsonElementValueType.nullValue;
     }
     return JsonElement(
         key: json['key'],
@@ -203,6 +210,8 @@ class JsonElement {
       jsonString += '"${value.toString()}"';
     } else if (valueType == JsonElementValueType.numeric) {
       jsonString += (value as num).format();
+    } else if (value == null && valueType == JsonElementValueType.nullValue) {
+      jsonString += 'null';
     } else if (value != null) {
       jsonString += value.toString();
     }
@@ -269,4 +278,4 @@ class JsonElement {
   }
 }
 
-enum JsonElementValueType { numeric, string, bool, array, map }
+enum JsonElementValueType { numeric, string, bool, array, map, nullValue }

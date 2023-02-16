@@ -17,6 +17,7 @@ class JsonTheme implements HighlightTheme {
     TextStyle? keyStyle,
     TextStyle? commentStyle,
     TextStyle? errorStyle,
+    TextStyle? nullStyle,
   })  : defaultStyle = defaultStyle ??
             TextStyle(color: Colors.blueGrey.shade900, fontSize: 14),
         bracketStyle = bracketStyle ??
@@ -37,7 +38,9 @@ class JsonTheme implements HighlightTheme {
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                decoration: TextDecoration.underline);
+                decoration: TextDecoration.underline),
+        nullStyle =
+            nullStyle ?? TextStyle(color: Colors.orange.shade800, fontSize: 14);
 
   factory JsonTheme.light() => JsonTheme(
       defaultStyle: TextStyle(color: Colors.blueGrey.shade900, fontSize: 14),
@@ -48,11 +51,13 @@ class JsonTheme implements HighlightTheme {
       keyStyle: TextStyle(color: Colors.blueGrey.shade600, fontSize: 14),
       commentStyle: TextStyle(color: Colors.grey.shade600, fontSize: 14),
       errorStyle: TextStyle(
-          color: Colors.red.shade600,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
-          decoration: TextDecoration.underline));
+        color: Colors.red.shade600,
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        fontStyle: FontStyle.italic,
+        decoration: TextDecoration.underline,
+      ),
+      nullStyle: TextStyle(color: Colors.orange.shade800, fontSize: 14));
 
   factory JsonTheme.dark() => JsonTheme(
       defaultStyle: TextStyle(color: Colors.white, fontSize: 14),
@@ -67,7 +72,8 @@ class JsonTheme implements HighlightTheme {
           fontSize: 14,
           fontWeight: FontWeight.bold,
           fontStyle: FontStyle.italic,
-          decoration: TextDecoration.underline));
+          decoration: TextDecoration.underline),
+      nullStyle: TextStyle(color: Colors.orange.shade800, fontSize: 14));
 
   @override
   final TextStyle defaultStyle;
@@ -78,6 +84,7 @@ class JsonTheme implements HighlightTheme {
   final TextStyle keyStyle;
   final TextStyle commentStyle;
   final TextStyle errorStyle;
+  final TextStyle nullStyle;
 
   final _config = HighlightConfig(brackets: [
     Pair(open: '{', close: '}'),
@@ -108,6 +115,7 @@ class JsonTheme implements HighlightTheme {
         HighlightDataType.key: keyStyle,
         HighlightDataType.comment: commentStyle,
         HighlightDataType.error: errorStyle,
+        HighlightDataType.nullType: nullStyle
       };
 
   @override

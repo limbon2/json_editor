@@ -126,7 +126,8 @@ class JsonAnalyzer {
           character: token.lexeme,
           charOffset: token.charOffset,
           line: token.line,
-          message: "Json value should be a String, Number, Bool, Array or Map");
+          message:
+              "Json value should be a String, Number, Bool, Array or Map or Null");
     }
   }
 
@@ -161,7 +162,8 @@ class JsonAnalyzer {
       token.type == TokenType.DOUBLE ||
       token.type == TokenType.STRING ||
       (token.type == TokenType.IDENTIFIER &&
-          ('true' == token.toString() || 'false' == token.toString()));
+          ('true' == token.toString() || 'false' == token.toString())) ||
+      (token.type == TokenType.IDENTIFIER && 'null' == token.toString());
 
   bool _isObjectStartToken(Token token) => token.lexeme == '{';
 
